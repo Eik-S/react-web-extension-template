@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "Wiki-Counter",
+  "version": "1.0",
+  "description": "A web extension to store your personal wikipedia history.",
+  "permissions": ["activeTab"],
+
+  "icons": {
+    "48": "icons/beasts-48.png"
+  },
+  "browser_action": {
+    "browser_style": "true",
+    "default_icon": { "32": "icons/beasts-32.png" },
+    "theme_icons": [
+      {
+        "light": "icons/beasts-32-light.png",
+        "dark": "icons/beasts-32.png",
+        "size": 32
+      }
+    ],
+    "default_title": "Wiki Counter",
+    "default_popup": "index.html"
+  }
+}
