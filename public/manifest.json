@@ -1,24 +1,28 @@
 {
   "manifest_version": 2,
-  "name": "Wiki-Counter",
+  "name": "react-browser-extension-boilerplate",
   "version": "1.0",
-  "description": "A web extension to store your personal wikipedia history.",
+  "description": "<add-your-description-here>",
   "permissions": ["activeTab"],
 
   "icons": {
-    "48": "icons/beasts-48.png"
+    "48": "icons/react-icon-192.png"
   },
   "browser_action": {
-    "browser_style": "true",
-    "default_icon": { "32": "icons/beasts-32.png" },
-    "theme_icons": [
-      {
-        "light": "icons/beasts-32-light.png",
-        "dark": "icons/beasts-32.png",
-        "size": 32
-      }
-    ],
-    "default_title": "Wiki Counter",
+    "browser_style": true,
+    "default_icon": { "32": "icons/react-icon-32.png", "64": "icons/react-icon-64.png" },
+    "default_title": "react-browser-extension-boilerplate",
     "default_popup": "index.html"
-  }
+  },
+  "background": {
+    "scripts": ["./backgroundScript.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["./contentScript.js"],
+      "run_at": "document_end"
+    }
+  ]
 }

@@ -1,10 +1,19 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
+async function loadWebExtPlugin() {
+  const WebExtPlugin = await import('web-ext-plugin')
+  return WebExtPlugin.default
+}
 
 module.exports = {
   mode: 'none',
   entry: {
     app: path.join(__dirname, 'src', 'index.tsx'),
+    contentScript: path.join(__dirname, 'src', 'contentScript.ts'),
+    backgroundScript: path.join(__dirname, 'src', 'backgroundScript.ts'),
   },
   target: 'web',
   resolve: {
@@ -22,10 +31,19 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.html'),
+      chunks: ['app'],
+    }),
+    () => loadWebExtPlugin().then((WebExtPlugin) => new WebExtPlugin({ sourceDir: 'dist' })),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'public' }],
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
     }),
   ],
 }
