@@ -1,10 +1,12 @@
 import { VisitedPage } from './models/visitedPage'
-import { MessageType } from './services/backgroundScriptChannel'
+import { MessageType, useBrowserMessaging } from './services/browserMessaging'
 import { UnreachableCaseError } from './utils/unreachableCaseError'
 
 const visitedPages: VisitedPage[] = []
 
-browser.runtime.onMessage.addListener(async (message) => {
+const { listenForMessages } = useBrowserMessaging()
+
+listenForMessages(async (message) => {
   const messageType = message.type as MessageType
   console.log('received message', { message })
   switch (messageType) {
@@ -29,5 +31,3 @@ function saveVisitedPage({ title, url }: VisitedPage) {
   visitedPages.push({ title, url })
   console.log(`User visited new page: ${title}`)
 }
-
-export {}

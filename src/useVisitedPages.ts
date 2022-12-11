@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { VisitedPage } from './models/visitedPage'
-import { useBackgroundScriptChannel } from './services/backgroundScriptChannel'
+import { useBrowserMessaging } from './services/browserMessaging'
 
 export function useVisitedPages() {
-  const { requestVisitedPages } = useBackgroundScriptChannel()
+  const { requestVisitedPages } = useBrowserMessaging()
 
   const [visitedPages, setVisitedPages] = useState<VisitedPage[]>([])
 

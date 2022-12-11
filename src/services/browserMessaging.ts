@@ -1,8 +1,9 @@
 import { VisitedPage } from '../models/visitedPage'
+import browser from 'webextension-polyfill'
 
 export type MessageType = 'PAGE_VISITED' | 'VISITED_PAGES_REQUEST'
 
-export function useBackgroundScriptChannel() {
+export function useBrowserMessaging() {
   async function sendPageVisited(): Promise<void> {
     console.log('Page visited: ', window.location.href, document.title)
     await browser.runtime.sendMessage({
@@ -18,8 +19,13 @@ export function useBackgroundScriptChannel() {
     })) as VisitedPage[]
   }
 
+  function listenForMessages(cb: (message: any) => void) {
+    browser.runtime.onMessage.addListener(cb)
+  }
+
   return {
     sendPageVisited,
     requestVisitedPages,
+    listenForMessages,
   }
 }

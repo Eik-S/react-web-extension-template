@@ -8,7 +8,7 @@ async function loadWebExtPlugin() {
   return WebExtPlugin.default
 }
 
-module.exports = {
+module.exports = (env) => ({
   mode: 'none',
   entry: {
     app: path.join(__dirname, 'src', 'index.tsx'),
@@ -40,10 +40,21 @@ module.exports = {
     }),
     () => loadWebExtPlugin().then((WebExtPlugin) => new WebExtPlugin({ sourceDir: 'dist' })),
     new CopyWebpackPlugin({
-      patterns: [{ from: 'public' }],
+      patterns: [
+        {
+          from: 'public',
+          globOptions: {
+            ignore: ['**/manifest*.json'],
+          },
+        },
+        {
+          from: `public/manifest_v${env.manifestVersion}.json`,
+          to: 'manifest.json',
+        },
+      ],
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
   ],
-}
+})

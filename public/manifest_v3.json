@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "react-browser-extension-boilerplate",
+  "version": "1.0",
+  "description": "<add-your-description-here>",
+  "permissions": ["activeTab"],
+
+  "icons": {
+    "48": "icons/react-icon-192.png"
+  },
+  "action": {
+    "browser_style": true,
+    "default_icon": { "32": "icons/react-icon-32.png", "64": "icons/react-icon-64.png" },
+    "default_title": "react-browser-extension-boilerplate",
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "./backgroundScript.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["./contentScript.js"],
+      "run_at": "document_end"
+    }
+  ]
+}

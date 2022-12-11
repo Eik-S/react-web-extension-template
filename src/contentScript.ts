@@ -1,7 +1,5 @@
-import { useBackgroundScriptChannel } from './services/backgroundScriptChannel'
+import { useBrowserMessaging } from './services/browserMessaging'
 
-const { sendPageVisited } = useBackgroundScriptChannel()
+const { sendPageVisited } = useBrowserMessaging()
 
 window.onload = sendPageVisited
-
-export {}
