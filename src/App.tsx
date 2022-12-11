@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import { useVisitedPages } from './useVisitedPages'
 
 export function App() {
-  const { visitedPages } = useVisitedPages()
+  const { visitedPages, visitPage } = useVisitedPages()
 
   return (
     <div css={styles.appStyles}>
@@ -10,7 +10,9 @@ export function App() {
       <ul>
         {visitedPages.map((page) => (
           <li key={page.url}>
-            <a href={page.url}>{page.title}</a>
+            <a href="" onClick={() => visitPage(page)}>
+              {page.title}
+            </a>
           </li>
         ))}
       </ul>
