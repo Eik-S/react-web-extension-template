@@ -2,6 +2,8 @@
 
 This template is for people who want to build a web-extension for either firefox, chrome or both.
 
+It uses [React](https://reactjs.org) for rendering its popup and can be easily adopted for rendering other UI content like a sidebar or an options page.
+
 If follows the guides on [Browser Extensions Documentation on MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions?retiredLocale=de)
 
 ## Usage
